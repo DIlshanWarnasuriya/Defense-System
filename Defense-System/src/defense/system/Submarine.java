@@ -1,18 +1,18 @@
 package defense.system;
 
+import java.awt.Color;
+
 public class Submarine extends javax.swing.JFrame implements Observer{
 
     private int SoldierCount=0;
     private int AmmoAmount=0;
+    private int fualValue=0;
+    private int OxigenLevel=0;
     private String message="";
     
     public Submarine() {
         initComponents();
         setVisible(true);
-    }
-    @Override
-    public String toString(){
-        return "Submarine";
     }
     
     public int getSoldierCount(){
@@ -20,6 +20,12 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     }    
     public int getAmmoAmount(){
         return AmmoAmount;
+    }
+    public int getFualValue(){
+        return fualValue;
+    }
+    public int getOxigenLevel(){
+        return OxigenLevel;
     }
     
     public void getMessage(String message){
@@ -30,6 +36,17 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     private void notifyMessage(){
         System.out.println("Submarine : " + message);
         txtMessageBox.setText(message);
+    }
+    
+    
+    
+    
+    
+    
+    
+    @Override
+    public String toString(){
+        return "Submarine";
     }
 
     @SuppressWarnings("unchecked")
@@ -62,6 +79,8 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         jLabel4 = new javax.swing.JLabel();
         sliderOxigen = new javax.swing.JSlider();
         jLabel6 = new javax.swing.JLabel();
+        ErrorMessagePanal = new javax.swing.JPanel();
+        lblErrorMessages = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,7 +99,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(429, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(426, 426, 426))
         );
@@ -172,6 +191,11 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnSend.setDefaultCapable(false);
         btnSend.setFocusPainted(false);
         btnSend.setFocusable(false);
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSend);
         btnSend.setBounds(660, 490, 95, 40);
 
@@ -330,7 +354,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         sliderFuel.setPaintLabels(true);
         sliderFuel.setPaintTicks(true);
         sliderFuel.setToolTipText("");
-        sliderFuel.setValue(100);
+        sliderFuel.setValue(0);
         sliderFuel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sliderFuel.setFocusable(false);
         jPanel1.add(sliderFuel);
@@ -349,7 +373,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         sliderOxigen.setPaintLabels(true);
         sliderOxigen.setPaintTicks(true);
         sliderOxigen.setToolTipText("");
-        sliderOxigen.setValue(100);
+        sliderOxigen.setValue(0);
         sliderOxigen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sliderOxigen.setFocusable(false);
         jPanel1.add(sliderOxigen);
@@ -360,6 +384,19 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         jLabel6.setText("Oxigen");
         jPanel1.add(jLabel6);
         jLabel6.setBounds(919, 160, 50, 19);
+
+        ErrorMessagePanal.setBackground(new java.awt.Color(255, 255, 255));
+        ErrorMessagePanal.setLayout(null);
+
+        lblErrorMessages.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        lblErrorMessages.setForeground(new java.awt.Color(255, 255, 255));
+        lblErrorMessages.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblErrorMessages.setText("jLabel6");
+        ErrorMessagePanal.add(lblErrorMessages);
+        lblErrorMessages.setBounds(20, 6, 840, 20);
+
+        jPanel1.add(ErrorMessagePanal);
+        ErrorMessagePanal.setBounds(90, 110, 880, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -378,16 +415,53 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetActionPerformed
-        if (!txtSoldierCount.getText().equals("") && !txtAmmoAmount.getText().equals("")) {
+        if (txtSoldierCount.getText().equals("") || txtAmmoAmount.getText().equals("")) {                
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);  
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Enter Soldier And Ammo and Fuel Details");
+        }  
+        else if(sliderFuel.getValue()==0 || sliderOxigen.getValue()==0){
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);    
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Set Fual and Oxigen Value");
+        }
+        else{
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true); 
+            lblErrorMessages.setText("Detail Set Successful");
+            ErrorMessagePanal.setBackground(new Color(5,153,0));
+            
             SoldierCount=Integer.parseInt(txtSoldierCount.getText());
             AmmoAmount=Integer.parseInt(txtAmmoAmount.getText());
+            fualValue = sliderFuel.getValue();
+            OxigenLevel = sliderOxigen.getValue();
         }
     }//GEN-LAST:event_btnSetActionPerformed
+
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        if(txtMessage.getText().equals("")){
+            ErrorMessagePanal.setVisible(true); 
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Please Enter Message on message feald");
+            lblErrorMessages.setVisible(true);
+        }
+        else{
+            ErrorMessagePanal.setVisible(true); 
+            ErrorMessagePanal.setBackground(new Color(5,153,0));
+            lblErrorMessages.setText("Send Message Successful");
+            lblErrorMessages.setVisible(true);
+            
+            mainController.ShowMessage("Submarine : "+txtMessage.getText());
+        }
+    }//GEN-LAST:event_btnSendActionPerformed
 
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ErrorMessagePanal;
     private javax.swing.JButton btnLaserOp;
     private javax.swing.JButton btnMissileOp;
     private javax.swing.JButton btnRotateSh;
@@ -408,6 +482,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblArea;
+    private javax.swing.JLabel lblErrorMessages;
     private javax.swing.JSlider sliderFuel;
     private javax.swing.JSlider sliderOxigen;
     private javax.swing.JTextField txtAmmoAmount;

@@ -1,5 +1,7 @@
 package defense.system;
 
+import java.awt.Color;
+
 public class MainController extends javax.swing.JFrame{
     
     private Observer[] ob = new Observer[0];
@@ -26,26 +28,21 @@ public class MainController extends javax.swing.JFrame{
             temp[i] = ob[i];
         }
         ob=temp;
-    }
-    
+    }    
     
     private void getMessage(String message){
         this.message=message;
         sendMessage();
-    }
-    
+    }   
     
     private void sendMessage(){
         for(Observer comp : ob){
-            comp.getMessage(message);
+            comp.getMessage("Main Controller : " + message);
         }
-    }
+    }  
     
-    
-    public void getclassName(){
-        for(Observer comp : ob){
-            System.out.println(comp.getClass().getName());
-        }
+    public void ShowMessage(String messagees){
+        txtMessageBox.setText(messagees);
     }
     
    
@@ -288,9 +285,13 @@ public class MainController extends javax.swing.JFrame{
             
         }
         else{
+            ErrorMessagePanal.setVisible(true); 
+            ErrorMessagePanal.setBackground(new Color(5,153,0));
+            lblErrorMessages.setText("Send Message Successful");
+            lblErrorMessages.setVisible(true);
+            
             getMessage(txtMessage.getText());  
-            lblErrorMessages.setVisible(false);        
-            ErrorMessagePanal.setVisible(false); 
+            
         }               
     }//GEN-LAST:event_btnSendActionPerformed
     
@@ -299,13 +300,19 @@ public class MainController extends javax.swing.JFrame{
         if (cbOption.getSelectedItem().equals("Select Option")) {            
             ErrorMessagePanal.setVisible(true); 
             lblErrorMessages.setText("Please Select Armer Option");
-            lblErrorMessages.setVisible(true);
-            
-            
+            lblErrorMessages.setVisible(true);            
         }
         else{
             lblErrorMessages.setVisible(false);        
             ErrorMessagePanal.setVisible(false);  
+            
+            for(Observer comp : ob){
+                if (comp.toString().equals(cbOption.getSelectedItem())) {
+                    lblSoldire.setText(Integer.toString(comp.getSoldierCount()));
+                    lblAmmo.setText(Integer.toString(comp.getAmmoAmount()));
+                    lblFuel.setText(Integer.toString(comp.getFualValue()) + "%");
+                }
+            }
         } 
         
     }//GEN-LAST:event_btnCollectActionPerformed

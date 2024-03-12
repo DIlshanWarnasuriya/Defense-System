@@ -1,25 +1,28 @@
 package defense.system;
 
+import java.awt.Color;
+
 public class Helicopter extends javax.swing.JFrame implements Observer{
 
     private int SoldierCount=0;
     private int AmmoAmount=0;
+    private int fualValue=0;
     private String message="";
     
     public Helicopter() {
         initComponents();
         setVisible(true);
     }    
-    @Override
-    public String toString(){
-        return "Helicopter";
-    }
+    
     
     public int getSoldierCount(){
         return SoldierCount;
     }    
     public int getAmmoAmount(){
         return AmmoAmount;
+    }
+    public int getFualValue(){
+        return fualValue;
     }
 
    public void getMessage(String message){
@@ -30,6 +33,17 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
     private void notifyMessage(){
         System.out.println("Helicopter : " + message);
         txtMessageBox.setText(message);
+    }
+    
+    
+    
+    
+    
+    
+    
+    @Override
+    public String toString(){
+        return "Helicopter";
     }
     
     @SuppressWarnings("unchecked")
@@ -59,6 +73,8 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         btnSet = new javax.swing.JButton();
         sliderFuel = new javax.swing.JSlider();
         jLabel4 = new javax.swing.JLabel();
+        ErrorMessagePanal = new javax.swing.JPanel();
+        lblErrorMessages = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +185,11 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         btnSend.setDefaultCapable(false);
         btnSend.setFocusPainted(false);
         btnSend.setFocusable(false);
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSend);
         btnSend.setBounds(660, 498, 95, 40);
 
@@ -315,7 +336,7 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         sliderFuel.setPaintLabels(true);
         sliderFuel.setPaintTicks(true);
         sliderFuel.setToolTipText("");
-        sliderFuel.setValue(100);
+        sliderFuel.setValue(0);
         sliderFuel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sliderFuel.setFocusable(false);
         jPanel1.add(sliderFuel);
@@ -326,6 +347,19 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         jLabel4.setText("Fuel");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(828, 160, 31, 19);
+
+        ErrorMessagePanal.setBackground(new java.awt.Color(255, 255, 255));
+        ErrorMessagePanal.setLayout(null);
+
+        lblErrorMessages.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        lblErrorMessages.setForeground(new java.awt.Color(255, 255, 255));
+        lblErrorMessages.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblErrorMessages.setText("jLabel6");
+        ErrorMessagePanal.add(lblErrorMessages);
+        lblErrorMessages.setBounds(20, 6, 740, 20);
+
+        jPanel1.add(ErrorMessagePanal);
+        ErrorMessagePanal.setBounds(90, 110, 770, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -342,15 +376,51 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetActionPerformed
-        if (!txtSoldierCount.getText().equals("") && !txtAmmoAmount.getText().equals("")) {
+        if (txtSoldierCount.getText().equals("") || txtAmmoAmount.getText().equals("")) {                
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);  
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Enter Soldier And Ammo and Fuel Details");
+        }  
+        else if(sliderFuel.getValue()==0){
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);    
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Set Fual Value");
+        }
+        else{
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true); 
+            lblErrorMessages.setText("Detail Set Successful");
+            ErrorMessagePanal.setBackground(new Color(5,153,0));
+            
             SoldierCount=Integer.parseInt(txtSoldierCount.getText());
             AmmoAmount=Integer.parseInt(txtAmmoAmount.getText());
+            fualValue = sliderFuel.getValue();
         }
     }//GEN-LAST:event_btnSetActionPerformed
+
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        if(txtMessage.getText().equals("")){
+            ErrorMessagePanal.setVisible(true); 
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Please Enter Message on message feald");
+            lblErrorMessages.setVisible(true);
+        }
+        else{
+            ErrorMessagePanal.setVisible(true); 
+            ErrorMessagePanal.setBackground(new Color(5,153,0));
+            lblErrorMessages.setText("Send Message Successful");
+            lblErrorMessages.setVisible(true);
+            
+            mainController.ShowMessage("Helicopter : "+txtMessage.getText());
+        }
+    }//GEN-LAST:event_btnSendActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ErrorMessagePanal;
     private javax.swing.JButton btnLaserOp;
     private javax.swing.JButton btnMissileOp;
     private javax.swing.JButton btnSend;
@@ -369,6 +439,7 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblArea;
+    private javax.swing.JLabel lblErrorMessages;
     private javax.swing.JSlider sliderFuel;
     private javax.swing.JTextField txtAmmoAmount;
     private javax.swing.JTextField txtMessage;
