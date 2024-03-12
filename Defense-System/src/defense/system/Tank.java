@@ -2,11 +2,32 @@ package defense.system;
 
 public class Tank extends javax.swing.JFrame implements Observer{
 
-    int SoldierCount;
-    int AmmoAmount;
+    private int SoldierCount=0;
+    private int AmmoAmount=0;
+    private String message="";
     
     public Tank() {
         initComponents();
+        setVisible(true);
+    }
+    
+    
+    
+    public int getSoldierCount(){
+        return SoldierCount;
+    }    
+    public int getAmmoAmount(){
+        return AmmoAmount;
+    }
+    
+    public void getMessage(String message){
+        this.message+=message;
+        notifyMessage();
+    }
+    
+    private void notifyMessage(){
+        System.out.println("Tank : " + message);
+        txtMessageBox.setText(message);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,6 +63,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(152, 227, 212));
+        jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(4, 83, 67));
 
@@ -66,30 +88,58 @@ public class Tank extends javax.swing.JFrame implements Observer{
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(0, 0, 959, 91);
+
         lblArea.setBackground(new java.awt.Color(255, 255, 255));
         lblArea.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         lblArea.setForeground(new java.awt.Color(0, 0, 0));
         lblArea.setText("Area Is NOt Cleared");
+        jPanel1.add(lblArea);
+        lblArea.setBounds(93, 153, 241, 26);
 
         cbPosition.setBackground(new java.awt.Color(255, 255, 255));
         cbPosition.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         cbPosition.setForeground(new java.awt.Color(0, 0, 0));
         cbPosition.setText("Position");
+        cbPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbPosition.setFocusPainted(false);
+        cbPosition.setFocusable(false);
+        jPanel1.add(cbPosition);
+        cbPosition.setBounds(654, 149, 105, 30);
 
         btnShoot.setBackground(new java.awt.Color(4, 83, 67));
         btnShoot.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnShoot.setForeground(new java.awt.Color(255, 255, 255));
         btnShoot.setText("Shoot");
+        btnShoot.setBorderPainted(false);
+        btnShoot.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnShoot.setFocusPainted(false);
+        btnShoot.setFocusable(false);
+        jPanel1.add(btnShoot);
+        btnShoot.setBounds(90, 220, 196, 60);
 
         btnMissileOp.setBackground(new java.awt.Color(4, 83, 67));
         btnMissileOp.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnMissileOp.setForeground(new java.awt.Color(255, 255, 255));
         btnMissileOp.setText("Missile Operation");
+        btnMissileOp.setBorderPainted(false);
+        btnMissileOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMissileOp.setFocusPainted(false);
+        btnMissileOp.setFocusable(false);
+        jPanel1.add(btnMissileOp);
+        btnMissileOp.setBounds(90, 307, 196, 60);
 
         LaserOp.setBackground(new java.awt.Color(4, 83, 67));
         LaserOp.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         LaserOp.setForeground(new java.awt.Color(255, 255, 255));
         LaserOp.setText("Laser Operation");
+        LaserOp.setBorderPainted(false);
+        LaserOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LaserOp.setFocusPainted(false);
+        LaserOp.setFocusable(false);
+        jPanel1.add(LaserOp);
+        LaserOp.setBounds(90, 391, 196, 57);
 
         jScrollPane1.setBackground(new java.awt.Color(152, 227, 212));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 227, 212)));
@@ -103,15 +153,30 @@ public class Tank extends javax.swing.JFrame implements Observer{
         txtMessageBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane1.setViewportView(txtMessageBox);
 
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(351, 307, 405, 173);
+
         btnSend.setBackground(new java.awt.Color(4, 83, 67));
         btnSend.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSend.setForeground(new java.awt.Color(255, 255, 255));
         btnSend.setText("Send");
+        btnSend.setBorderPainted(false);
+        btnSend.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSend.setFocusPainted(false);
+        btnSend.setFocusable(false);
+        jPanel1.add(btnSend);
+        btnSend.setBounds(660, 498, 95, 40);
 
         btnRotateSh.setBackground(new java.awt.Color(4, 83, 67));
         btnRotateSh.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnRotateSh.setForeground(new java.awt.Color(255, 255, 255));
         btnRotateSh.setText("Rotate Shooting");
+        btnRotateSh.setBorderPainted(false);
+        btnRotateSh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRotateSh.setFocusPainted(false);
+        btnRotateSh.setFocusable(false);
+        jPanel1.add(btnRotateSh);
+        btnRotateSh.setBounds(90, 478, 196, 60);
 
         jPanel3.setBackground(new java.awt.Color(152, 227, 212));
 
@@ -136,6 +201,9 @@ public class Tank extends javax.swing.JFrame implements Observer{
                 .addComponent(txtMessage)
                 .addContainerGap())
         );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(351, 498, 297, 40);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -197,6 +265,10 @@ public class Tank extends javax.swing.JFrame implements Observer{
         btnSet.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSet.setForeground(new java.awt.Color(255, 255, 255));
         btnSet.setText("Set");
+        btnSet.setBorderPainted(false);
+        btnSet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSet.setFocusPainted(false);
+        btnSet.setFocusable(false);
         btnSet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSetActionPerformed(evt);
@@ -238,6 +310,9 @@ public class Tank extends javax.swing.JFrame implements Observer{
                 .addGap(24, 24, 24))
         );
 
+        jPanel1.add(jPanel7);
+        jPanel7.setBounds(339, 197, 420, 104);
+
         sliderFuel.setBackground(new java.awt.Color(255, 255, 255));
         sliderFuel.setMajorTickSpacing(20);
         sliderFuel.setMinorTickSpacing(10);
@@ -246,101 +321,26 @@ public class Tank extends javax.swing.JFrame implements Observer{
         sliderFuel.setPaintTicks(true);
         sliderFuel.setToolTipText("");
         sliderFuel.setValue(100);
+        sliderFuel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sliderFuel.setFocusable(false);
+        jPanel1.add(sliderFuel);
+        sliderFuel.setBounds(819, 197, 50, 341);
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fuel");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblArea, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(320, 320, 320)
-                        .addComponent(cbPosition))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnShoot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMissileOp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(LaserOp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRotateSh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 3, 3)))))
-                .addGap(60, 60, 60)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sliderFuel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel4)))
-                .addContainerGap(90, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(lblArea))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbPosition)
-                            .addComponent(jLabel4))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(btnShoot, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnMissileOp, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(LaserOp, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(btnRotateSh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(sliderFuel, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
-        );
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(828, 160, 31, 19);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 959, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
         );
 
         pack();
@@ -353,38 +353,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
         }   
     }//GEN-LAST:event_btnSetActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-       
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Tank().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LaserOp;

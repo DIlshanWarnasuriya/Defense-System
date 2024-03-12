@@ -1,10 +1,53 @@
 package defense.system;
 
 public class MainController extends javax.swing.JFrame{
+    
+    private Observer[] ob = new Observer[0];
+    private String message;
 
     public MainController() {
-        initComponents();
+        initComponents(); 
+        setDefaultCloseOperation(EXIT_ON_CLOSE);        
+        setVisible(true);
+        
+        lblErrorMessages.setVisible(false);        
+        ErrorMessagePanal.setVisible(false);        
     }
+    
+    
+    public void addComponent(Observer component){
+        extendObserver();
+        ob[ob.length-1] = component;
+        
+    }
+    private void extendObserver(){
+        Observer[] temp = new Observer[ob.length+1];
+        for (int i = 0; i < ob.length; i++) {
+            temp[i] = ob[i];
+        }
+        ob=temp;
+    }
+    
+    
+    private void getMessage(String message){
+        this.message=message;
+        sendMessage();
+    }
+    
+    
+    private void sendMessage(){
+        for(Observer comp : ob){
+            comp.getMessage(message);
+        }
+    }
+    
+    
+    public void getclassName(){
+        for(Observer comp : ob){
+            System.out.println(comp.getClass().getName());
+        }
+    }
+    
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -30,6 +73,8 @@ public class MainController extends javax.swing.JFrame{
         lblFuel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblAmmo = new javax.swing.JLabel();
+        ErrorMessagePanal = new javax.swing.JPanel();
+        lblErrorMessages = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -48,10 +93,10 @@ public class MainController extends javax.swing.JFrame{
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(422, 422, 422)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(407, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(389, Short.MAX_VALUE))
+                .addGap(404, 404, 404))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -68,6 +113,9 @@ public class MainController extends javax.swing.JFrame{
         cbArea.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         cbArea.setForeground(new java.awt.Color(0, 0, 0));
         cbArea.setText("Area Clear");
+        cbArea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbArea.setFocusPainted(false);
+        cbArea.setFocusable(false);
         jPanel1.add(cbArea);
         cbArea.setBounds(850, 180, 126, 30);
 
@@ -75,8 +123,17 @@ public class MainController extends javax.swing.JFrame{
         btnCollect.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnCollect.setForeground(new java.awt.Color(255, 255, 255));
         btnCollect.setText("Collect Informations");
+        btnCollect.setBorderPainted(false);
+        btnCollect.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCollect.setFocusPainted(false);
+        btnCollect.setFocusable(false);
+        btnCollect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCollectActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCollect);
-        btnCollect.setBounds(310, 170, 218, 43);
+        btnCollect.setBounds(318, 170, 210, 43);
 
         jScrollPane1.setBackground(new java.awt.Color(152, 227, 212));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 227, 212)));
@@ -97,6 +154,15 @@ public class MainController extends javax.swing.JFrame{
         btnSend.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSend.setForeground(new java.awt.Color(255, 255, 255));
         btnSend.setText("Send");
+        btnSend.setBorderPainted(false);
+        btnSend.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSend.setFocusPainted(false);
+        btnSend.setFocusable(false);
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSend);
         btnSend.setBounds(890, 460, 95, 40);
 
@@ -132,6 +198,8 @@ public class MainController extends javax.swing.JFrame{
         cbOption.setForeground(new java.awt.Color(0, 0, 0));
         cbOption.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select Option", "Helicopter", "Tank", "Submarine" }));
         cbOption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 227, 212)));
+        cbOption.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbOption.setFocusable(false);
         jPanel1.add(cbOption);
         cbOption.setBounds(100, 170, 204, 43);
 
@@ -139,7 +207,7 @@ public class MainController extends javax.swing.JFrame{
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Soldier Count    : ");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(100, 260, 160, 24);
+        jLabel2.setBounds(102, 260, 151, 24);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -161,6 +229,8 @@ public class MainController extends javax.swing.JFrame{
         sliderPosition.setPaintTicks(true);
         sliderPosition.setToolTipText("");
         sliderPosition.setValue(0);
+        sliderPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sliderPosition.setFocusable(false);
         jPanel1.add(sliderPosition);
         sliderPosition.setBounds(100, 460, 428, 43);
 
@@ -172,12 +242,12 @@ public class MainController extends javax.swing.JFrame{
         lblSoldire.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblSoldire.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(lblSoldire);
-        lblSoldire.setBounds(260, 260, 40, 0);
+        lblSoldire.setBounds(260, 260, 60, 30);
 
         lblFuel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblFuel.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(lblFuel);
-        lblFuel.setBounds(260, 300, 0, 0);
+        lblFuel.setBounds(260, 300, 60, 30);
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -188,47 +258,62 @@ public class MainController extends javax.swing.JFrame{
         lblAmmo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblAmmo.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(lblAmmo);
-        lblAmmo.setBounds(260, 340, 0, 0);
+        lblAmmo.setBounds(260, 340, 60, 30);
+
+        ErrorMessagePanal.setBackground(new java.awt.Color(255, 0, 0));
+        ErrorMessagePanal.setLayout(null);
+
+        lblErrorMessages.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        lblErrorMessages.setForeground(new java.awt.Color(255, 255, 255));
+        lblErrorMessages.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblErrorMessages.setText("jLabel6");
+        ErrorMessagePanal.add(lblErrorMessages);
+        lblErrorMessages.setBounds(20, 6, 860, 20);
+
+        jPanel1.add(ErrorMessagePanal);
+        ErrorMessagePanal.setBounds(100, 110, 890, 30);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1096, 591));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    // Send Button
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        if (txtMessage.getText().equals("")) {            
+            ErrorMessagePanal.setVisible(true); 
+            lblErrorMessages.setText("Please Enter Message on message feald");
+            lblErrorMessages.setVisible(true);
+            
+            
         }
-        //</editor-fold>
-       
+        else{
+            getMessage(txtMessage.getText());  
+            lblErrorMessages.setVisible(false);        
+            ErrorMessagePanal.setVisible(false); 
+        }               
+    }//GEN-LAST:event_btnSendActionPerformed
+    
+    // Collect Informations Button
+    private void btnCollectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectActionPerformed
+        if (cbOption.getSelectedItem().equals("Select Option")) {            
+            ErrorMessagePanal.setVisible(true); 
+            lblErrorMessages.setText("Please Select Armer Option");
+            lblErrorMessages.setVisible(true);
+            
+            
+        }
+        else{
+            lblErrorMessages.setVisible(false);        
+            ErrorMessagePanal.setVisible(false);  
+        } 
+        
+    }//GEN-LAST:event_btnCollectActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainController().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ErrorMessagePanal;
     private javax.swing.JButton btnCollect;
     private javax.swing.JButton btnSend;
     private javax.swing.JCheckBox cbArea;
@@ -244,6 +329,7 @@ public class MainController extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAmmo;
+    private javax.swing.JLabel lblErrorMessages;
     private javax.swing.JLabel lblFuel;
     private javax.swing.JLabel lblSoldire;
     private javax.swing.JSlider sliderPosition;
