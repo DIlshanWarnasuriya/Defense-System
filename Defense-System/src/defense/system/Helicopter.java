@@ -30,7 +30,11 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
     @Override
     public int getFualValue(){
         return fualValue;
-    }    
+    }      
+    @Override
+    public String toString(){
+        return "Helicopter";
+    }
 
     // get message form Main Controller
     @Override  
@@ -186,6 +190,11 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         btnShoot.setEnabled(false);
         btnShoot.setFocusPainted(false);
         btnShoot.setFocusable(false);
+        btnShoot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShootActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnShoot);
         btnShoot.setBounds(90, 218, 196, 75);
 
@@ -222,6 +231,7 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         txtMessageBox.setEditable(false);
         txtMessageBox.setBackground(new java.awt.Color(255, 255, 255));
         txtMessageBox.setColumns(20);
+        txtMessageBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtMessageBox.setForeground(new java.awt.Color(51, 51, 51));
         txtMessageBox.setRows(5);
         txtMessageBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -486,6 +496,19 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
             btnLaserOp.setEnabled(false);
         }
     }//GEN-LAST:event_cbPositionActionPerformed
+
+     // Shoot button
+    private void btnShootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShootActionPerformed
+        if (txtAmmoAmount.getText().equals("")) {
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);    
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Ammo count is Zero. Set new Ammo Count");
+        }
+        else{
+            txtAmmoAmount.setText(Integer.toString(--AmmoAmount));
+        }
+    }//GEN-LAST:event_btnShootActionPerformed
 
     
 

@@ -31,6 +31,10 @@ public class Tank extends javax.swing.JFrame implements Observer{
     public int getFualValue(){
         return fualValue;
     }
+    @Override
+    public String toString(){
+        return "Tank";
+    }
     
     // get message form Main Controller
     @Override 
@@ -196,6 +200,11 @@ public class Tank extends javax.swing.JFrame implements Observer{
         btnShoot.setEnabled(false);
         btnShoot.setFocusPainted(false);
         btnShoot.setFocusable(false);
+        btnShoot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShootActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnShoot);
         btnShoot.setBounds(90, 220, 196, 60);
 
@@ -505,6 +514,19 @@ public class Tank extends javax.swing.JFrame implements Observer{
             btnRotateSh.setEnabled(false);
         }
     }//GEN-LAST:event_cbPositionActionPerformed
+
+    // Shoot button
+    private void btnShootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShootActionPerformed
+        if (txtAmmoAmount.getText().equals("")) {
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);    
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Ammo count is Zero. Set new Ammo Count");
+        }
+        else{
+            txtAmmoAmount.setText(Integer.toString(--AmmoAmount));
+        }
+    }//GEN-LAST:event_btnShootActionPerformed
 
     
 

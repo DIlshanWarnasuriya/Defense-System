@@ -112,7 +112,7 @@ public class MainController extends javax.swing.JFrame{
         cbArea.setBackground(new java.awt.Color(255, 255, 255));
         cbArea.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         cbArea.setForeground(new java.awt.Color(0, 0, 0));
-        cbArea.setText("Area not Clear");
+        cbArea.setText("Area Clear");
         cbArea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbArea.setFocusPainted(false);
         cbArea.setFocusable(false);
@@ -122,7 +122,7 @@ public class MainController extends javax.swing.JFrame{
             }
         });
         jPanel1.add(cbArea);
-        cbArea.setBounds(820, 180, 170, 30);
+        cbArea.setBounds(860, 180, 130, 30);
 
         btnCollect.setBackground(new java.awt.Color(4, 83, 67));
         btnCollect.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -316,7 +316,11 @@ public class MainController extends javax.swing.JFrame{
             ErrorMessagePanal.setVisible(true); 
             ErrorMessagePanal.setBackground(Color.RED);
             lblErrorMessages.setText("Please Select Armer Option");
-            lblErrorMessages.setVisible(true);            
+            lblErrorMessages.setVisible(true);  
+            
+            lblSoldire.setText("");
+            lblAmmo.setText("");
+            lblFuel.setText("");
         }
         else{
             ErrorMessagePanal.setVisible(true); 
@@ -337,14 +341,12 @@ public class MainController extends javax.swing.JFrame{
 
     // Area clear Check box
     private void cbAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAreaActionPerformed
-        if (cbArea.isSelected()) {
-            cbArea.setText("Area is Clear");
+        if (cbArea.isSelected()) {            
             for(Observer comp : ob){
                 comp.SetAreaClearance("is Clear");
             }
         }
-        else{
-            cbArea.setText("Area not Clear");
+        else{            
             for(Observer comp : ob){
                 comp.SetAreaClearance("is not Clear");
             }

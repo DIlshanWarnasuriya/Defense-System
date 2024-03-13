@@ -204,6 +204,11 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnShoot.setEnabled(false);
         btnShoot.setFocusPainted(false);
         btnShoot.setFocusable(false);
+        btnShoot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShootActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnShoot);
         btnShoot.setBounds(90, 220, 196, 60);
 
@@ -442,10 +447,10 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         lblErrorMessages.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblErrorMessages.setText("jLabel6");
         ErrorMessagePanal.add(lblErrorMessages);
-        lblErrorMessages.setBounds(20, 6, 840, 20);
+        lblErrorMessages.setBounds(20, 6, 740, 20);
 
         jPanel1.add(ErrorMessagePanal);
-        ErrorMessagePanal.setBounds(90, 110, 880, 30);
+        ErrorMessagePanal.setBounds(90, 110, 770, 30);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -523,6 +528,19 @@ public class Submarine extends javax.swing.JFrame implements Observer{
             btnRotateSh.setEnabled(false);
         }
     }//GEN-LAST:event_cbPositionActionPerformed
+
+    // Shoot button
+    private void btnShootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShootActionPerformed
+        if (txtAmmoAmount.getText().equals("")) {
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);    
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Ammo count is Zero. Set new Ammo Count");
+        }
+        else{
+            txtAmmoAmount.setText(Integer.toString(--AmmoAmount));
+        }
+    }//GEN-LAST:event_btnShootActionPerformed
 
     
     
