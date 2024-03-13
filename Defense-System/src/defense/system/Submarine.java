@@ -9,6 +9,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     private int fualValue=0;
     private int OxigenLevel=0;
     private String message="";
+    private String position = "not position";
     
     public Submarine() {
         initComponents();
@@ -28,9 +29,15 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         return OxigenLevel;
     }
     
-    public void getMessage(String message){
-        this.message+=message;
-        notifyMessage();
+    public void getMessage(String mg){
+        if (message.equals("")) {
+            message=mg;
+            notifyMessage();
+        }
+        else{
+            message+="\n"+mg;
+            notifyMessage();
+        }      
     }    
     private void notifyMessage(){        
         txtMessageBox.setText(message);
@@ -46,6 +53,30 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     }
     
     
+    public String getposition(){
+        return position;
+    }
+    
+    public void buttonEnable(int level){
+        if(level > 20 ) {
+            btnShoot.setEnabled(true);
+        }
+        else if(level > 40){
+            btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(true);
+        }
+        else if(level > 60){
+            btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(true);
+            btnLaserOp.setEnabled(true);
+        }    
+        else if(level > 80){
+            btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(true);
+            btnLaserOp.setEnabled(true);
+            btnRotateSh.setEnabled(true);
+        }
+    }
     
     
     
@@ -135,6 +166,11 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         cbPosition.setContentAreaFilled(false);
         cbPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbPosition.setFocusable(false);
+        cbPosition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPositionActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbPosition);
         cbPosition.setBounds(654, 149, 105, 30);
 
@@ -145,6 +181,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnShoot.setBorderPainted(false);
         btnShoot.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnShoot.setDefaultCapable(false);
+        btnShoot.setEnabled(false);
         btnShoot.setFocusPainted(false);
         btnShoot.setFocusable(false);
         jPanel1.add(btnShoot);
@@ -157,6 +194,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnMissileOp.setBorderPainted(false);
         btnMissileOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMissileOp.setDefaultCapable(false);
+        btnMissileOp.setEnabled(false);
         btnMissileOp.setFocusPainted(false);
         btnMissileOp.setFocusable(false);
         jPanel1.add(btnMissileOp);
@@ -169,6 +207,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnLaserOp.setBorderPainted(false);
         btnLaserOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLaserOp.setDefaultCapable(false);
+        btnLaserOp.setEnabled(false);
         btnLaserOp.setFocusPainted(false);
         btnLaserOp.setFocusable(false);
         jPanel1.add(btnLaserOp);
@@ -181,6 +220,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         txtMessageBox.setEditable(false);
         txtMessageBox.setBackground(new java.awt.Color(255, 255, 255));
         txtMessageBox.setColumns(20);
+        txtMessageBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtMessageBox.setForeground(new java.awt.Color(51, 51, 51));
         txtMessageBox.setRows(5);
         txtMessageBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -213,6 +253,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnRotateSh.setBorderPainted(false);
         btnRotateSh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRotateSh.setDefaultCapable(false);
+        btnRotateSh.setEnabled(false);
         btnRotateSh.setFocusPainted(false);
         btnRotateSh.setFocusable(false);
         jPanel1.add(btnRotateSh);
@@ -463,9 +504,19 @@ public class Submarine extends javax.swing.JFrame implements Observer{
             lblErrorMessages.setText("Send Message Successful");
             lblErrorMessages.setVisible(true);
             
-            mainController.ShowMessage("Submarine : "+txtMessage.getText());
+            mainController.getMessage("Submarine : "+txtMessage.getText());
         }
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void cbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPositionActionPerformed
+        if (cbPosition.isSelected()) {
+            position = "position";
+           
+        }
+        else{
+            position = "not position";
+        }
+    }//GEN-LAST:event_cbPositionActionPerformed
 
     
     

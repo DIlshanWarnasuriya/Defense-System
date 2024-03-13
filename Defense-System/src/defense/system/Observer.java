@@ -11,6 +11,9 @@ public interface Observer {
     
     public void SetAreaClearance(String Situation);
     
+    public String getposition();
+    public void buttonEnable(int level);
+    
     @Override
     public String toString();
    

@@ -8,14 +8,16 @@ public class Tank extends javax.swing.JFrame implements Observer{
     private int AmmoAmount=0;
     private int fualValue=0;
     private String message="";
+    private String position = "not position";
     
     public Tank() {
         initComponents();
         setVisible(true);
         lblErrorMessages.setVisible(false);        
         ErrorMessagePanal.setVisible(false);
-    }  
+    } 
     
+    // get Details to main Controller
     public int getSoldierCount(){
         return SoldierCount;
     }    
@@ -26,14 +28,23 @@ public class Tank extends javax.swing.JFrame implements Observer{
         return fualValue;
     }
     
-    public void getMessage(String message){
-        this.message+=message;
-        notifyMessage();
-    }    
+    // get message form Main Controller
+    public void getMessage(String mg){
+        if (message.equals("")) {
+            message=mg;
+            notifyMessage();
+        }
+        else{
+            message+="\n"+mg;
+            notifyMessage();
+        }      
+    }  
+    // Set Messages to messages box
     private void notifyMessage(){        
         txtMessageBox.setText(message);
     }
     
+    // set Area Clear lable
     public void SetAreaClearance(String Situation){
         if (Situation.equals("is Clear")) {
             lblArea.setText("Area is Clear");
@@ -44,6 +55,30 @@ public class Tank extends javax.swing.JFrame implements Observer{
     }
 
     
+    public String getposition(){
+        return position;
+    }
+    
+    public void buttonEnable(int level){
+        if(level > 20 ) {
+            btnShoot.setEnabled(true);
+        }
+        else if(level > 40){
+            btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(true);
+        }
+        else if(level > 60){
+            btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(true);
+            btnLaserOp.setEnabled(true);
+        }    
+        else if(level > 80){
+            btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(true);
+            btnLaserOp.setEnabled(true);
+            btnRotateSh.setEnabled(true);
+        }
+    }
     
     
     @Override
@@ -62,7 +97,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
         cbPosition = new javax.swing.JCheckBox();
         btnShoot = new javax.swing.JButton();
         btnMissileOp = new javax.swing.JButton();
-        LaserOp = new javax.swing.JButton();
+        btnLaserOp = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMessageBox = new javax.swing.JTextArea();
         btnSend = new javax.swing.JButton();
@@ -128,6 +163,11 @@ public class Tank extends javax.swing.JFrame implements Observer{
         cbPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbPosition.setFocusPainted(false);
         cbPosition.setFocusable(false);
+        cbPosition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPositionActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbPosition);
         cbPosition.setBounds(654, 149, 105, 30);
 
@@ -137,6 +177,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
         btnShoot.setText("Shoot");
         btnShoot.setBorderPainted(false);
         btnShoot.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnShoot.setEnabled(false);
         btnShoot.setFocusPainted(false);
         btnShoot.setFocusable(false);
         jPanel1.add(btnShoot);
@@ -148,21 +189,23 @@ public class Tank extends javax.swing.JFrame implements Observer{
         btnMissileOp.setText("Missile Operation");
         btnMissileOp.setBorderPainted(false);
         btnMissileOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMissileOp.setEnabled(false);
         btnMissileOp.setFocusPainted(false);
         btnMissileOp.setFocusable(false);
         jPanel1.add(btnMissileOp);
         btnMissileOp.setBounds(90, 307, 196, 60);
 
-        LaserOp.setBackground(new java.awt.Color(4, 83, 67));
-        LaserOp.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        LaserOp.setForeground(new java.awt.Color(255, 255, 255));
-        LaserOp.setText("Laser Operation");
-        LaserOp.setBorderPainted(false);
-        LaserOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        LaserOp.setFocusPainted(false);
-        LaserOp.setFocusable(false);
-        jPanel1.add(LaserOp);
-        LaserOp.setBounds(90, 391, 196, 57);
+        btnLaserOp.setBackground(new java.awt.Color(4, 83, 67));
+        btnLaserOp.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnLaserOp.setForeground(new java.awt.Color(255, 255, 255));
+        btnLaserOp.setText("Laser Operation");
+        btnLaserOp.setBorderPainted(false);
+        btnLaserOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLaserOp.setEnabled(false);
+        btnLaserOp.setFocusPainted(false);
+        btnLaserOp.setFocusable(false);
+        jPanel1.add(btnLaserOp);
+        btnLaserOp.setBounds(90, 391, 196, 57);
 
         jScrollPane1.setBackground(new java.awt.Color(152, 227, 212));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(152, 227, 212)));
@@ -171,6 +214,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
         txtMessageBox.setEditable(false);
         txtMessageBox.setBackground(new java.awt.Color(255, 255, 255));
         txtMessageBox.setColumns(20);
+        txtMessageBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtMessageBox.setForeground(new java.awt.Color(51, 51, 51));
         txtMessageBox.setRows(5);
         txtMessageBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -201,6 +245,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
         btnRotateSh.setText("Rotate Shooting");
         btnRotateSh.setBorderPainted(false);
         btnRotateSh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRotateSh.setEnabled(false);
         btnRotateSh.setFocusPainted(false);
         btnRotateSh.setFocusable(false);
         jPanel1.add(btnRotateSh);
@@ -427,15 +472,25 @@ public class Tank extends javax.swing.JFrame implements Observer{
             lblErrorMessages.setText("Send Message Successful");
             lblErrorMessages.setVisible(true);
             
-            mainController.ShowMessage("Tank : "+txtMessage.getText());
+            mainController.getMessage("Tank : "+txtMessage.getText());
         }
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void cbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPositionActionPerformed
+        if (cbPosition.isSelected()) {
+            position = "position";
+           
+        }
+        else{
+            position = "not position";
+        }
+    }//GEN-LAST:event_cbPositionActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ErrorMessagePanal;
-    private javax.swing.JButton LaserOp;
+    private javax.swing.JButton btnLaserOp;
     private javax.swing.JButton btnMissileOp;
     private javax.swing.JButton btnRotateSh;
     private javax.swing.JButton btnSend;

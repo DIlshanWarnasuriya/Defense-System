@@ -4,17 +4,18 @@ import java.awt.Color;
 
 public class Helicopter extends javax.swing.JFrame implements Observer{
 
-    private int SoldierCount=0;
-    private int AmmoAmount=0;
-    private int fualValue=0;
+    private int SoldierCount;
+    private int AmmoAmount;
+    private int fualValue;
     private String message="";
+    private String position = "not position";
     
     public Helicopter() {
         initComponents();
         setVisible(true);
     }    
     
-    
+    // get Details to main Controller
     public int getSoldierCount(){
         return SoldierCount;
     }    
@@ -23,16 +24,25 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
     }
     public int getFualValue(){
         return fualValue;
-    }
-
-   public void getMessage(String message){
-        this.message+=message;
-        notifyMessage();
     }    
+
+    // get message form Main Controller
+    public void getMessage(String mg){
+        if (message.equals("")) {
+            message=mg;
+            notifyMessage();
+        }
+        else{
+            message+="\n"+mg;
+            notifyMessage();
+        }      
+    } 
+    // Set Messages to messages box
     private void notifyMessage(){        
         txtMessageBox.setText(message);
     }
     
+    // set Area Clear lable
     public void SetAreaClearance(String Situation){
         if (Situation.equals("is Clear")) {
             lblArea.setText("Area is Clear");
@@ -42,8 +52,24 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         }
     }
     
+    public String getposition(){
+        return position;
+    }
     
-    
+    public void buttonEnable(int level){
+        if(level > 20 ) {
+            btnShoot.setEnabled(true);
+        }
+        else if(level > 40){
+            btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(true);
+        }
+        else if(level > 60){
+            btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(true);
+            btnLaserOp.setEnabled(true);
+        }        
+    }
     
     
     
@@ -128,6 +154,11 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         cbPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbPosition.setFocusPainted(false);
         cbPosition.setFocusable(false);
+        cbPosition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPositionActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbPosition);
         cbPosition.setBounds(654, 149, 105, 30);
 
@@ -138,6 +169,7 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         btnShoot.setBorderPainted(false);
         btnShoot.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnShoot.setDefaultCapable(false);
+        btnShoot.setEnabled(false);
         btnShoot.setFocusPainted(false);
         btnShoot.setFocusable(false);
         jPanel1.add(btnShoot);
@@ -150,6 +182,7 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         btnMissileOp.setBorderPainted(false);
         btnMissileOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMissileOp.setDefaultCapable(false);
+        btnMissileOp.setEnabled(false);
         btnMissileOp.setFocusPainted(false);
         btnMissileOp.setFocusable(false);
         jPanel1.add(btnMissileOp);
@@ -162,6 +195,7 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         btnLaserOp.setBorderPainted(false);
         btnLaserOp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLaserOp.setDefaultCapable(false);
+        btnLaserOp.setEnabled(false);
         btnLaserOp.setFocusPainted(false);
         btnLaserOp.setFocusable(false);
         jPanel1.add(btnLaserOp);
@@ -421,9 +455,19 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
             lblErrorMessages.setText("Send Message Successful");
             lblErrorMessages.setVisible(true);
             
-            mainController.ShowMessage("Helicopter : "+txtMessage.getText());
+            mainController.getMessage("Helicopter : "+txtMessage.getText());
         }
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void cbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPositionActionPerformed
+        if (cbPosition.isSelected()) {
+            position = "position";
+           
+        }
+        else{
+            position = "not position";
+        }
+    }//GEN-LAST:event_cbPositionActionPerformed
 
     
 

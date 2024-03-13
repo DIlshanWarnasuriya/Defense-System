@@ -4,9 +4,9 @@ import java.awt.Color;
 
 public class MainController extends javax.swing.JFrame{
     
+    //Observer Array
     private Observer[] ob = new Observer[0];
-    
-    private String message;
+    private String message="";
 
     public MainController() {
         initComponents(); 
@@ -17,24 +17,35 @@ public class MainController extends javax.swing.JFrame{
         ErrorMessagePanal.setVisible(false);        
     }
     
-    
+    // add armers to Observer Array
     public void addComponent(Observer component){
         extendObserver();
         ob[ob.length-1] = component;
         
     }
+    // extend Observer array
     private void extendObserver(){
         Observer[] temp = new Observer[ob.length+1];
         for (int i = 0; i < ob.length; i++) {
             temp[i] = ob[i];
         }
         ob=temp;
-    }    
+    }        
     
-    
-    
-    public void ShowMessage(String messagees){
-        txtMessageBox.setText(messagees);
+    // get message form another Armer
+    public void getMessage(String mg){
+        if (message.equals("")) {
+            message=mg;
+            notifyMessage();
+        }
+        else{
+            message+="\n"+mg;
+            notifyMessage();
+        }
+    }
+    // Set Messages to messages box
+    private void notifyMessage(){        
+        txtMessageBox.setText(message);
     }
     
    
@@ -136,6 +147,7 @@ public class MainController extends javax.swing.JFrame{
         txtMessageBox.setEditable(false);
         txtMessageBox.setBackground(new java.awt.Color(255, 255, 255));
         txtMessageBox.setColumns(20);
+        txtMessageBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtMessageBox.setForeground(new java.awt.Color(51, 51, 51));
         txtMessageBox.setRows(5);
         txtMessageBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -318,6 +330,7 @@ public class MainController extends javax.swing.JFrame{
         
     }//GEN-LAST:event_btnCollectActionPerformed
 
+    // Area clear Check box
     private void cbAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAreaActionPerformed
         if (cbArea.isSelected()) {
             cbArea.setText("Area is Clear");
