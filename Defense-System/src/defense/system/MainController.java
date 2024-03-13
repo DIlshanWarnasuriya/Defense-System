@@ -5,6 +5,7 @@ import java.awt.Color;
 public class MainController extends javax.swing.JFrame{
     
     private Observer[] ob = new Observer[0];
+    
     private String message;
 
     public MainController() {
@@ -30,16 +31,7 @@ public class MainController extends javax.swing.JFrame{
         ob=temp;
     }    
     
-    private void getMessage(String message){
-        this.message=message;
-        sendMessage();
-    }   
     
-    private void sendMessage(){
-        for(Observer comp : ob){
-            comp.getMessage("Main Controller : " + message);
-        }
-    }  
     
     public void ShowMessage(String messagees){
         txtMessageBox.setText(messagees);
@@ -109,12 +101,17 @@ public class MainController extends javax.swing.JFrame{
         cbArea.setBackground(new java.awt.Color(255, 255, 255));
         cbArea.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         cbArea.setForeground(new java.awt.Color(0, 0, 0));
-        cbArea.setText("Area Clear");
+        cbArea.setText("Area not Clear");
         cbArea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbArea.setFocusPainted(false);
         cbArea.setFocusable(false);
+        cbArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAreaActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbArea);
-        cbArea.setBounds(850, 180, 126, 30);
+        cbArea.setBounds(820, 180, 170, 30);
 
         btnCollect.setBackground(new java.awt.Color(4, 83, 67));
         btnCollect.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -257,7 +254,7 @@ public class MainController extends javax.swing.JFrame{
         jPanel1.add(lblAmmo);
         lblAmmo.setBounds(260, 340, 60, 30);
 
-        ErrorMessagePanal.setBackground(new java.awt.Color(255, 0, 0));
+        ErrorMessagePanal.setBackground(new java.awt.Color(255, 255, 255));
         ErrorMessagePanal.setLayout(null);
 
         lblErrorMessages.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
@@ -279,10 +276,9 @@ public class MainController extends javax.swing.JFrame{
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         if (txtMessage.getText().equals("")) {            
             ErrorMessagePanal.setVisible(true); 
+            ErrorMessagePanal.setBackground(Color.RED);
             lblErrorMessages.setText("Please Enter Message on message feald");
-            lblErrorMessages.setVisible(true);
-            
-            
+            lblErrorMessages.setVisible(true);           
         }
         else{
             ErrorMessagePanal.setVisible(true); 
@@ -290,7 +286,9 @@ public class MainController extends javax.swing.JFrame{
             lblErrorMessages.setText("Send Message Successful");
             lblErrorMessages.setVisible(true);
             
-            getMessage(txtMessage.getText());  
+            for(Observer comp : ob){
+                comp.getMessage("Main Controller : " + txtMessage.getText());
+            }
             
         }               
     }//GEN-LAST:event_btnSendActionPerformed
@@ -299,12 +297,15 @@ public class MainController extends javax.swing.JFrame{
     private void btnCollectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectActionPerformed
         if (cbOption.getSelectedItem().equals("Select Option")) {            
             ErrorMessagePanal.setVisible(true); 
+            ErrorMessagePanal.setBackground(Color.RED);
             lblErrorMessages.setText("Please Select Armer Option");
             lblErrorMessages.setVisible(true);            
         }
         else{
-            lblErrorMessages.setVisible(false);        
-            ErrorMessagePanal.setVisible(false);  
+            ErrorMessagePanal.setVisible(true); 
+            ErrorMessagePanal.setBackground(new Color(5,153,0));
+            lblErrorMessages.setText("Find Armer Details");
+            lblErrorMessages.setVisible(true); 
             
             for(Observer comp : ob){
                 if (comp.toString().equals(cbOption.getSelectedItem())) {
@@ -316,6 +317,21 @@ public class MainController extends javax.swing.JFrame{
         } 
         
     }//GEN-LAST:event_btnCollectActionPerformed
+
+    private void cbAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAreaActionPerformed
+        if (cbArea.isSelected()) {
+            cbArea.setText("Area is Clear");
+            for(Observer comp : ob){
+                comp.SetAreaClearance("is Clear");
+            }
+        }
+        else{
+            cbArea.setText("Area not Clear");
+            for(Observer comp : ob){
+                comp.SetAreaClearance("is not Clear");
+            }
+        }
+    }//GEN-LAST:event_cbAreaActionPerformed
 
     
 

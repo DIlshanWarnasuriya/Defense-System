@@ -5,9 +5,7 @@ public class DefenseSystem {
 
     public static MainController mainControler = new MainController();
     
-    public static void main(String[] args) {
-        
-        
+    public static void main(String[] args) {     
         
         Helicopter helicopter = new Helicopter();
         Tank tank = new Tank();
@@ -15,12 +13,7 @@ public class DefenseSystem {
         
         mainControler.addComponent(helicopter);
         mainControler.addComponent(tank);
-        mainControler.addComponent(submarine);
+        mainControler.addComponent(submarine);      
         
-        
-        
-        
-        
-    }
-    
+    }    
 }

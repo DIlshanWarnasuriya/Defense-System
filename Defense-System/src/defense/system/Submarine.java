@@ -31,11 +31,18 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     public void getMessage(String message){
         this.message+=message;
         notifyMessage();
+    }    
+    private void notifyMessage(){        
+        txtMessageBox.setText(message);
     }
     
-    private void notifyMessage(){
-        System.out.println("Submarine : " + message);
-        txtMessageBox.setText(message);
+    public void SetAreaClearance(String Situation){
+        if (Situation.equals("is Clear")) {
+            lblArea.setText("Area is Clear");
+        }
+        else{
+            lblArea.setText("Area not Clear");
+        }
     }
     
     
@@ -117,7 +124,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         lblArea.setBackground(new java.awt.Color(255, 255, 255));
         lblArea.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         lblArea.setForeground(new java.awt.Color(0, 0, 0));
-        lblArea.setText("Area Is NOt Cleared");
+        lblArea.setText("Area Is not Cleared");
         jPanel1.add(lblArea);
         lblArea.setBounds(93, 153, 241, 26);
 
@@ -414,6 +421,8 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    // Detail Set Button
     private void btnSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetActionPerformed
         if (txtSoldierCount.getText().equals("") || txtAmmoAmount.getText().equals("")) {                
             ErrorMessagePanal.setVisible(true);
@@ -440,6 +449,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         }
     }//GEN-LAST:event_btnSetActionPerformed
 
+     // Message Send Button
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         if(txtMessage.getText().equals("")){
             ErrorMessagePanal.setVisible(true); 

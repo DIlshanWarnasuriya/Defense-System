@@ -29,11 +29,18 @@ public class Tank extends javax.swing.JFrame implements Observer{
     public void getMessage(String message){
         this.message+=message;
         notifyMessage();
+    }    
+    private void notifyMessage(){        
+        txtMessageBox.setText(message);
     }
     
-    private void notifyMessage(){
-        System.out.println("Tank : " + message);
-        txtMessageBox.setText(message);
+    public void SetAreaClearance(String Situation){
+        if (Situation.equals("is Clear")) {
+            lblArea.setText("Area is Clear");
+        }
+        else{
+            lblArea.setText("Area not Clear");
+        }
     }
 
     
@@ -380,6 +387,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Detail Set Button
     private void btnSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetActionPerformed
         if (txtSoldierCount.getText().equals("") || txtAmmoAmount.getText().equals("")) {                
             ErrorMessagePanal.setVisible(true);
@@ -405,6 +413,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
         }
     }//GEN-LAST:event_btnSetActionPerformed
 
+    // Message Send Button
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         if(txtMessage.getText().equals("")){
             ErrorMessagePanal.setVisible(true); 

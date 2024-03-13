@@ -9,6 +9,8 @@ public interface Observer {
     
     public void getMessage(String message);   
     
+    public void SetAreaClearance(String Situation);
+    
     @Override
     public String toString();
    
