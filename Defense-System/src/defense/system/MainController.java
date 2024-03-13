@@ -1,6 +1,7 @@
 package defense.system;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class MainController extends javax.swing.JFrame{
     
@@ -12,9 +13,8 @@ public class MainController extends javax.swing.JFrame{
         initComponents(); 
         setDefaultCloseOperation(EXIT_ON_CLOSE);        
         setVisible(true);
-        
-        lblErrorMessages.setVisible(false);        
-        ErrorMessagePanal.setVisible(false);        
+        setTitle("Defense System");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
     
     // add armers to Observer Array
@@ -223,9 +223,9 @@ public class MainController extends javax.swing.JFrame{
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Position");
+        jLabel4.setText("War Level");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(100, 430, 71, 24);
+        jLabel4.setBounds(100, 430, 100, 24);
 
         sliderPosition.setBackground(new java.awt.Color(255, 255, 255));
         sliderPosition.setForeground(new java.awt.Color(0, 0, 0));
@@ -237,6 +237,11 @@ public class MainController extends javax.swing.JFrame{
         sliderPosition.setValue(0);
         sliderPosition.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sliderPosition.setFocusable(false);
+        sliderPosition.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                sliderPositionMouseReleased(evt);
+            }
+        });
         jPanel1.add(sliderPosition);
         sliderPosition.setBounds(100, 460, 428, 43);
 
@@ -345,6 +350,16 @@ public class MainController extends javax.swing.JFrame{
             }
         }
     }//GEN-LAST:event_cbAreaActionPerformed
+
+    private void sliderPositionMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sliderPositionMouseReleased
+        int value = sliderPosition.getValue();
+        
+        for(Observer comp : ob){
+            if (comp.getposition().equals("position")) {
+                comp.buttonEnable(value);
+            }
+        }
+    }//GEN-LAST:event_sliderPositionMouseReleased
 
     
 

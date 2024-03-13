@@ -1,6 +1,7 @@
 package defense.system;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class Helicopter extends javax.swing.JFrame implements Observer{
 
@@ -13,20 +14,26 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
     public Helicopter() {
         initComponents();
         setVisible(true);
+        setTitle("Defense System");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }    
     
     // get Details to main Controller
+    @Override  
     public int getSoldierCount(){
         return SoldierCount;
-    }    
+    } 
+    @Override
     public int getAmmoAmount(){
         return AmmoAmount;
     }
+    @Override
     public int getFualValue(){
         return fualValue;
     }    
 
     // get message form Main Controller
+    @Override  
     public void getMessage(String mg){
         if (message.equals("")) {
             message=mg;
@@ -36,13 +43,13 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
             message+="\n"+mg;
             notifyMessage();
         }      
-    } 
-    // Set Messages to messages box
+    }
     private void notifyMessage(){        
         txtMessageBox.setText(message);
     }
     
     // set Area Clear lable
+    @Override  
     public void SetAreaClearance(String Situation){
         if (Situation.equals("is Clear")) {
             lblArea.setText("Area is Clear");
@@ -52,19 +59,30 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         }
     }
     
+    // get position status to main controller
+    @Override
     public String getposition(){
         return position;
     }
-    
+    // button enable 
+    @Override
     public void buttonEnable(int level){
+        if (level < 20) {
+            btnShoot.setEnabled(false);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
+        }
         if(level > 20 ) {
             btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
         }
-        else if(level > 40){
+        if(level > 40){
             btnShoot.setEnabled(true);
             btnMissileOp.setEnabled(true);
+            btnLaserOp.setEnabled(false);
         }
-        else if(level > 60){
+        if(level > 60){
             btnShoot.setEnabled(true);
             btnMissileOp.setEnabled(true);
             btnLaserOp.setEnabled(true);
@@ -72,11 +90,7 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
     }
     
     
-    
-    @Override
-    public String toString(){
-        return "Helicopter";
-    }
+   
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -459,6 +473,7 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         }
     }//GEN-LAST:event_btnSendActionPerformed
 
+    // pisition Set Check Box
     private void cbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPositionActionPerformed
         if (cbPosition.isSelected()) {
             position = "position";
@@ -466,6 +481,9 @@ public class Helicopter extends javax.swing.JFrame implements Observer{
         }
         else{
             position = "not position";
+            btnShoot.setEnabled(false);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
         }
     }//GEN-LAST:event_cbPositionActionPerformed
 

@@ -1,6 +1,7 @@
 package defense.system;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class Tank extends javax.swing.JFrame implements Observer{
 
@@ -13,22 +14,26 @@ public class Tank extends javax.swing.JFrame implements Observer{
     public Tank() {
         initComponents();
         setVisible(true);
-        lblErrorMessages.setVisible(false);        
-        ErrorMessagePanal.setVisible(false);
+        setTitle("Defense System");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     } 
     
     // get Details to main Controller
+    @Override 
     public int getSoldierCount(){
         return SoldierCount;
-    }    
+    }
+    @Override
     public int getAmmoAmount(){
         return AmmoAmount;
     }
+    @Override
     public int getFualValue(){
         return fualValue;
     }
     
     // get message form Main Controller
+    @Override 
     public void getMessage(String mg){
         if (message.equals("")) {
             message=mg;
@@ -39,12 +44,12 @@ public class Tank extends javax.swing.JFrame implements Observer{
             notifyMessage();
         }      
     }  
-    // Set Messages to messages box
     private void notifyMessage(){        
         txtMessageBox.setText(message);
     }
     
     // set Area Clear lable
+    @Override 
     public void SetAreaClearance(String Situation){
         if (Situation.equals("is Clear")) {
             lblArea.setText("Area is Clear");
@@ -54,25 +59,39 @@ public class Tank extends javax.swing.JFrame implements Observer{
         }
     }
 
-    
+    // get position status to main controller
+    @Override
     public String getposition(){
         return position;
     }
-    
+    // button enable 
+    @Override
     public void buttonEnable(int level){
+        if (level < 20) {
+            btnShoot.setEnabled(false);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
+            btnRotateSh.setEnabled(false);
+        }
         if(level > 20 ) {
             btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
+            btnRotateSh.setEnabled(false);
         }
-        else if(level > 40){
+        if(level > 40){
             btnShoot.setEnabled(true);
             btnMissileOp.setEnabled(true);
+            btnLaserOp.setEnabled(false);
+            btnRotateSh.setEnabled(false);
         }
-        else if(level > 60){
+        if(level > 60){
             btnShoot.setEnabled(true);
             btnMissileOp.setEnabled(true);
             btnLaserOp.setEnabled(true);
+            btnRotateSh.setEnabled(false);
         }    
-        else if(level > 80){
+        if(level > 80){
             btnShoot.setEnabled(true);
             btnMissileOp.setEnabled(true);
             btnLaserOp.setEnabled(true);
@@ -81,10 +100,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
     }
     
     
-    @Override
-    public String toString(){
-        return "Tank";
-    }
+   
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -483,6 +499,10 @@ public class Tank extends javax.swing.JFrame implements Observer{
         }
         else{
             position = "not position";
+            btnShoot.setEnabled(false);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
+            btnRotateSh.setEnabled(false);
         }
     }//GEN-LAST:event_cbPositionActionPerformed
 

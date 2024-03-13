@@ -1,34 +1,43 @@
 package defense.system;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class Submarine extends javax.swing.JFrame implements Observer{
 
     private int SoldierCount=0;
     private int AmmoAmount=0;
-    private int fualValue=0;
-    private int OxigenLevel=0;
+    private int fualValue=0;    
     private String message="";
     private String position = "not position";
     
     public Submarine() {
         initComponents();
         setVisible(true);
+        setTitle("Defense System");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
     }
     
+    // get Details to main Controller
+    @Override
     public int getSoldierCount(){
         return SoldierCount;
-    }    
+    }   
+    @Override
     public int getAmmoAmount(){
         return AmmoAmount;
     }
+    @Override
     public int getFualValue(){
         return fualValue;
-    }
-    public int getOxigenLevel(){
-        return OxigenLevel;
+    }   
+    @Override
+    public String toString(){
+        return "Submarine";
     }
     
+    // get message form Main Controller
+    @Override
     public void getMessage(String mg){
         if (message.equals("")) {
             message=mg;
@@ -43,6 +52,8 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         txtMessageBox.setText(message);
     }
     
+    // set Area Clear lable
+    @Override
     public void SetAreaClearance(String Situation){
         if (Situation.equals("is Clear")) {
             lblArea.setText("Area is Clear");
@@ -52,25 +63,39 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         }
     }
     
-    
+    // get position status to main controller
+    @Override
     public String getposition(){
         return position;
     }
-    
+    // button enable 
+    @Override
     public void buttonEnable(int level){
+        if (level < 20) {
+            btnShoot.setEnabled(false);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
+            btnRotateSh.setEnabled(false);
+        }
         if(level > 20 ) {
             btnShoot.setEnabled(true);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
+            btnRotateSh.setEnabled(false);
         }
-        else if(level > 40){
+        if(level > 40){
             btnShoot.setEnabled(true);
             btnMissileOp.setEnabled(true);
+            btnLaserOp.setEnabled(false);
+            btnRotateSh.setEnabled(false);
         }
-        else if(level > 60){
+        if(level > 60){
             btnShoot.setEnabled(true);
             btnMissileOp.setEnabled(true);
             btnLaserOp.setEnabled(true);
+            btnRotateSh.setEnabled(false);
         }    
-        else if(level > 80){
+        if(level > 80){
             btnShoot.setEnabled(true);
             btnMissileOp.setEnabled(true);
             btnLaserOp.setEnabled(true);
@@ -82,10 +107,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     
     
     
-    @Override
-    public String toString(){
-        return "Submarine";
-    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -115,8 +137,6 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         jLabel5 = new javax.swing.JLabel();
         sliderFuel = new javax.swing.JSlider();
         jLabel4 = new javax.swing.JLabel();
-        sliderOxigen = new javax.swing.JSlider();
-        jLabel6 = new javax.swing.JLabel();
         ErrorMessagePanal = new javax.swing.JPanel();
         lblErrorMessages = new javax.swing.JLabel();
 
@@ -136,21 +156,21 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(429, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(377, 377, 377)
                 .addComponent(jLabel1)
-                .addGap(426, 426, 426))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addGap(17, 17, 17))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 1059, 91);
+        jPanel2.setBounds(0, 0, 960, 91);
 
         lblArea.setBackground(new java.awt.Color(255, 255, 255));
         lblArea.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
@@ -414,25 +434,6 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         jPanel1.add(jLabel4);
         jLabel4.setBounds(828, 160, 31, 19);
 
-        sliderOxigen.setBackground(new java.awt.Color(255, 255, 255));
-        sliderOxigen.setMajorTickSpacing(20);
-        sliderOxigen.setMinorTickSpacing(10);
-        sliderOxigen.setOrientation(javax.swing.JSlider.VERTICAL);
-        sliderOxigen.setPaintLabels(true);
-        sliderOxigen.setPaintTicks(true);
-        sliderOxigen.setToolTipText("");
-        sliderOxigen.setValue(0);
-        sliderOxigen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        sliderOxigen.setFocusable(false);
-        jPanel1.add(sliderOxigen);
-        sliderOxigen.setBounds(919, 197, 50, 341);
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Oxigen");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(919, 160, 50, 19);
-
         ErrorMessagePanal.setBackground(new java.awt.Color(255, 255, 255));
         ErrorMessagePanal.setLayout(null);
 
@@ -450,7 +451,9 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 959, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,7 +474,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
             ErrorMessagePanal.setBackground(Color.RED);
             lblErrorMessages.setText("Enter Soldier And Ammo and Fuel Details");
         }  
-        else if(sliderFuel.getValue()==0 || sliderOxigen.getValue()==0){
+        else if(sliderFuel.getValue()==0){
             ErrorMessagePanal.setVisible(true);
             lblErrorMessages.setVisible(true);    
             ErrorMessagePanal.setBackground(Color.RED);
@@ -485,8 +488,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
             
             SoldierCount=Integer.parseInt(txtSoldierCount.getText());
             AmmoAmount=Integer.parseInt(txtAmmoAmount.getText());
-            fualValue = sliderFuel.getValue();
-            OxigenLevel = sliderOxigen.getValue();
+            fualValue = sliderFuel.getValue();            
         }
     }//GEN-LAST:event_btnSetActionPerformed
 
@@ -515,6 +517,10 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         }
         else{
             position = "not position";
+            btnShoot.setEnabled(false);
+            btnMissileOp.setEnabled(false);
+            btnLaserOp.setEnabled(false);
+            btnRotateSh.setEnabled(false);
         }
     }//GEN-LAST:event_cbPositionActionPerformed
 
@@ -534,7 +540,6 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -545,7 +550,6 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     private javax.swing.JLabel lblArea;
     private javax.swing.JLabel lblErrorMessages;
     private javax.swing.JSlider sliderFuel;
-    private javax.swing.JSlider sliderOxigen;
     private javax.swing.JTextField txtAmmoAmount;
     private javax.swing.JTextField txtMessage;
     private javax.swing.JTextArea txtMessageBox;
