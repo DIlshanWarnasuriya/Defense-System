@@ -222,6 +222,11 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnMissileOp.setEnabled(false);
         btnMissileOp.setFocusPainted(false);
         btnMissileOp.setFocusable(false);
+        btnMissileOp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMissileOpActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnMissileOp);
         btnMissileOp.setBounds(90, 307, 196, 60);
 
@@ -235,6 +240,11 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnLaserOp.setEnabled(false);
         btnLaserOp.setFocusPainted(false);
         btnLaserOp.setFocusable(false);
+        btnLaserOp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaserOpActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnLaserOp);
         btnLaserOp.setBounds(90, 390, 196, 57);
 
@@ -281,6 +291,11 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         btnRotateSh.setEnabled(false);
         btnRotateSh.setFocusPainted(false);
         btnRotateSh.setFocusable(false);
+        btnRotateSh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRotateShActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnRotateSh);
         btnRotateSh.setBounds(90, 470, 196, 60);
 
@@ -473,17 +488,17 @@ public class Submarine extends javax.swing.JFrame implements Observer{
     
     // Detail Set Button
     private void btnSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetActionPerformed
-        if (txtSoldierCount.getText().equals("") || txtAmmoAmount.getText().equals("")) {                
+        if (txtSoldierCount.getText().equals("") || txtAmmoAmount.getText().equals("") && Integer.parseInt(txtSoldierCount.getText())<0 || Integer.parseInt(txtAmmoAmount.getText())<0) {                
             ErrorMessagePanal.setVisible(true);
             lblErrorMessages.setVisible(true);  
             ErrorMessagePanal.setBackground(Color.RED);
-            lblErrorMessages.setText("Enter Soldier And Ammo and Fuel Details");
-        }  
+            lblErrorMessages.setText("Enter Soldier And Ammo details. Insert only positive Numbers");
+        }   
         else if(sliderFuel.getValue()==0){
             ErrorMessagePanal.setVisible(true);
             lblErrorMessages.setVisible(true);    
             ErrorMessagePanal.setBackground(Color.RED);
-            lblErrorMessages.setText("Set Fual and Oxigen Value");
+            lblErrorMessages.setText("Set Fual Value");
         }
         else{
             ErrorMessagePanal.setVisible(true);
@@ -497,7 +512,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         }
     }//GEN-LAST:event_btnSetActionPerformed
 
-     // Message Send Button
+    // Message Send Button
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         if(txtMessage.getText().equals("")){
             ErrorMessagePanal.setVisible(true); 
@@ -515,6 +530,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         }
     }//GEN-LAST:event_btnSendActionPerformed
 
+    // position checkBox
     private void cbPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPositionActionPerformed
         if (cbPosition.isSelected()) {
             position = "position";
@@ -531,7 +547,7 @@ public class Submarine extends javax.swing.JFrame implements Observer{
 
     // Shoot button
     private void btnShootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShootActionPerformed
-        if (txtAmmoAmount.getText().equals("")) {
+        if (txtAmmoAmount.getText().equals("") || txtAmmoAmount.getText().equals("0")) {
             ErrorMessagePanal.setVisible(true);
             lblErrorMessages.setVisible(true);    
             ErrorMessagePanal.setBackground(Color.RED);
@@ -539,8 +555,53 @@ public class Submarine extends javax.swing.JFrame implements Observer{
         }
         else{
             txtAmmoAmount.setText(Integer.toString(--AmmoAmount));
+            ErrorMessagePanal.setVisible(false);
+            lblErrorMessages.setVisible(false);  
         }
     }//GEN-LAST:event_btnShootActionPerformed
+
+    // Missile OpAction button
+    private void btnMissileOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMissileOpActionPerformed
+        if (txtAmmoAmount.getText().equals("") || txtAmmoAmount.getText().equals("0")) {
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);    
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Ammo count is Zero. Set new Ammo Count");
+        }
+        else{   
+            txtAmmoAmount.setText(Integer.toString(--AmmoAmount));
+            ErrorMessagePanal.setVisible(false);
+            lblErrorMessages.setVisible(false);   
+        }
+    }//GEN-LAST:event_btnMissileOpActionPerformed
+
+    // Laser OpAction Button
+    private void btnLaserOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaserOpActionPerformed
+        if (txtAmmoAmount.getText().equals("") || txtAmmoAmount.getText().equals("0")) {
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);    
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Ammo count is Zero. Set new Ammo Count");
+        }
+        else{            
+            ErrorMessagePanal.setVisible(false);
+            lblErrorMessages.setVisible(false);   
+        }
+    }//GEN-LAST:event_btnLaserOpActionPerformed
+
+    // Rotate Shoot button
+    private void btnRotateShActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRotateShActionPerformed
+        if (txtAmmoAmount.getText().equals("") || txtAmmoAmount.getText().equals("0")) {
+            ErrorMessagePanal.setVisible(true);
+            lblErrorMessages.setVisible(true);    
+            ErrorMessagePanal.setBackground(Color.RED);
+            lblErrorMessages.setText("Ammo count is Zero. Set new Ammo Count");
+        }
+        else{            
+            ErrorMessagePanal.setVisible(false);
+            lblErrorMessages.setVisible(false);   
+        }
+    }//GEN-LAST:event_btnRotateShActionPerformed
 
     
     

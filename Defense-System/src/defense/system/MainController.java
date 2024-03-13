@@ -330,9 +330,27 @@ public class MainController extends javax.swing.JFrame{
             
             for(Observer comp : ob){
                 if (comp.toString().equals(cbOption.getSelectedItem())) {
-                    lblSoldire.setText(Integer.toString(comp.getSoldierCount()));
-                    lblAmmo.setText(Integer.toString(comp.getAmmoAmount()));
-                    lblFuel.setText(Integer.toString(comp.getFualValue()) + "%");
+                    String SoldierCount = Integer.toString(comp.getSoldierCount());
+                    String AmmoAmount = Integer.toString(comp.getAmmoAmount());
+                    String FualValue = Integer.toString(comp.getFualValue());
+                    
+                    if (SoldierCount.equals("0") && AmmoAmount.equals("0") && FualValue.equals("0")) {
+                        ErrorMessagePanal.setVisible(true); 
+                        ErrorMessagePanal.setBackground(Color.RED);
+                        lblErrorMessages.setText("Not set " + comp.toString() + " Details");
+                        lblErrorMessages.setVisible(true); 
+                    }else{
+                        ErrorMessagePanal.setVisible(true); 
+                        ErrorMessagePanal.setBackground(new Color(5,153,0));
+                        lblErrorMessages.setText("Find " + comp.toString() + " Details");
+                        lblErrorMessages.setVisible(true); 
+            
+                        lblSoldire.setText(SoldierCount);
+                        lblAmmo.setText(AmmoAmount);
+                        lblFuel.setText(FualValue + "%");
+                    }
+                    
+                    
                 }
             }
         } 
