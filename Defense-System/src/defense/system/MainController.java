@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 
 public class MainController extends javax.swing.JFrame{
     
+    private static MainController instance;
+    
     //Observer Array
     private Observer[] ob = new Observer[0];
     private String message="";
@@ -382,6 +384,14 @@ public class MainController extends javax.swing.JFrame{
         }
     }//GEN-LAST:event_sliderPositionMouseReleased
 
+    
+    // MainController get 
+    public static MainController getInstence(){
+        if (instance==null) {
+            return instance = new MainController();
+        }
+        return instance;
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
