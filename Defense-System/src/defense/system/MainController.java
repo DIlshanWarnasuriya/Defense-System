@@ -306,6 +306,7 @@ public class MainController extends javax.swing.JFrame{
             for(Observer comp : ob){
                 comp.getMessage("Main Controller : " + txtMessage.getText());
             }
+            txtMessage.setText("");
             
         }               
     }//GEN-LAST:event_btnSendActionPerformed

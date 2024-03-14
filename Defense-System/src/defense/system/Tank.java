@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 
 public class Tank extends javax.swing.JFrame implements Observer{
 
+    private MainController mainController;
+     
     private int SoldierCount=0;
     private int AmmoAmount=0;
     private int fualValue=0;
@@ -12,11 +14,16 @@ public class Tank extends javax.swing.JFrame implements Observer{
     private String position = "not position";
     
     public Tank() {
+        
+    } 
+    
+    public Tank(MainController mainController){
         initComponents();
         setVisible(true);
         setTitle("Defense System");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
-    } 
+        this.mainController=mainController;
+    }
     
     // get Details to main Controller
     @Override 
@@ -513,6 +520,7 @@ public class Tank extends javax.swing.JFrame implements Observer{
             lblErrorMessages.setVisible(true);
             
             mainController.getMessage("Tank : "+txtMessage.getText());
+            txtMessage.setText("");
         }
     }//GEN-LAST:event_btnSendActionPerformed
 

@@ -1,7 +1,6 @@
 package defense.system;
 
-public interface Observer {
-    public MainController mainController = DefenseSystem.mainControler;
+public interface Observer {    
     
     public int getSoldierCount();
     public int getAmmoAmount();
